@@ -8,7 +8,7 @@ using System.Text;
 namespace sqlcsv4net.src
 {
 	/// <summary>
-	/// cvnインポータ
+	/// csvインポータ
 	/// </summary>
 	static class CsvImporter
 	{
