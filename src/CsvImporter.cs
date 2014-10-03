@@ -39,11 +39,11 @@ namespace sqlcsv4net.src
 		}
 
 		/// <summary>
-		/// テーブル作成
+		/// creates a database table.
 		/// </summary>
-		/// <param name="conn"></param>
-		/// <param name="tableName"></param>
-		/// <param name="columns"></param>
+		/// <param name="conn">the connection</param>
+		/// <param name="tableName">the table name</param>
+		/// <param name="columns">the array of all the columns of the table</param>
 		private static void createTable(SQLiteConnection conn, String tableName, String[] columns)
 		{
 			SQLiteCommand command = conn.CreateCommand();
