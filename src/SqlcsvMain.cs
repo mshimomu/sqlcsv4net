@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.IO;
+using System.Reflection;
 
 namespace sqlcsv4net.src
 {
@@ -32,60 +33,31 @@ namespace sqlcsv4net.src
                     CsvImporter.ImportCsvToTable(f, conn);
                 }
 
-                String input = "";
-				while (!"exit".Equals(input.ToLower()))
+				Boolean isEnd = false;
+				while (!isEnd)
 				{
-					Console.Write(">");
-					input = Console.ReadLine();
+					String input = "";
+					while (!(input.Trim()).EndsWith(";"))
+					{
+						Console.Write("SQL>");
+						input += Console.ReadLine().Trim() + " ";
 
-					if ("".Equals(input.ToLower()))
-					{
-						continue;
-					}
-					else if ("exit".Equals(input.ToLower()))
-					{
-						continue;
-					}
-					else if ("quit".Equals(input.ToLower()))
-					{
-						input = "exit";
-						continue;
-					}
-					else if (input.ToLower().StartsWith("import"))
-					{
-						continue;
-					}
-					else if (input.ToLower().StartsWith("select"))
-					{
-						try
+						if ("exit".Equals(input.Trim().ToLower()))
 						{
-							SQLiteCommand command = conn.CreateCommand();
-							command = conn.CreateCommand();
-							command.CommandText = input;
-							SQLiteDataReader reader = command.ExecuteReader();
-							if (!reader.HasRows)
-							{
-								Console.WriteLine("no row selected");
-							}
-							int fc = reader.FieldCount;
-							while (reader.Read())
-							{
-								String[] row = new String[fc];
-								for (int i = 0; i < fc; i++)
-								{
-									row[i] = reader.GetValue(i).ToString();
-								}
-								Console.WriteLine(String.Join("\t", row));
-							}
-							Console.WriteLine();
-							Console.WriteLine(reader.StepCount + " row(s) selected");
+							isEnd = true;
+							break;
 						}
-						catch (SQLiteException e)
+						else if ("quit".Equals(input.Trim().ToLower()))
 						{
-							Console.WriteLine(e.Message);
+							isEnd = true;
+							break;
 						}
 					}
+
+					CommandManager.executeCommand(input, conn);
+
 				}
+
             }
             catch (Exception e)
             {
@@ -103,12 +75,10 @@ namespace sqlcsv4net.src
 		/// </summary>
 		private static void showTitle()
 		{
-			Console.WriteLine("######################");
-			Console.WriteLine();
-			Console.WriteLine("Sqlcsv");
-			Console.WriteLine();
-			Console.WriteLine("######################");
-			Console.WriteLine();
+			var assm = Assembly.GetExecutingAssembly();
+
+
+			Console.WriteLine("SQL*CSV: Release " + assm.GetName().Version);
 			Console.WriteLine();
 		}
     }

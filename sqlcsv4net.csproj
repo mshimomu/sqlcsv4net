@@ -7,7 +7,7 @@
     <ProjectGuid>{8C1050D1-032F-44F5-A3EB-6E008DB82DB6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>sqlcsv</RootNamespace>
+    <RootNamespace>sqlcsv4net</RootNamespace>
     <AssemblyName>sqlcsv</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\CommandManager.cs" />
     <Compile Include="src\CsvImporter.cs" />
     <Compile Include="src\SqlcsvMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
