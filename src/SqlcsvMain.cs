@@ -37,9 +37,16 @@ namespace sqlcsv4net.src
 				while (!isEnd)
 				{
 					String input = "";
-					while (!(input.Trim()).EndsWith(";"))
+					for (int i = 1; !(input.Trim()).EndsWith(";"); i++)
 					{
-						Console.Write("SQL>");
+						if(i == 1)
+						{
+							Console.Write("SQL>");
+						}
+						else
+						{
+							Console.Write("  " + i + ">");
+						}
 						input += Console.ReadLine().Trim() + " ";
 
 						if ("exit".Equals(input.Trim().ToLower()))
