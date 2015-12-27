@@ -61,7 +61,7 @@ namespace sqlcsv4net.src
 						}
 					}
 
-					CommandManager.executeCommand(input, conn);
+					CommandManager.executeCommand(input.Trim(), conn);
 
 				}
 
